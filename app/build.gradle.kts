@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "eu.tutorial.unitconverter"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "eu.tutorial.unitconverter"
