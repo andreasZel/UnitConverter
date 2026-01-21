@@ -24,6 +24,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.modifierLocalConsumer
@@ -37,19 +41,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             UnitConverterTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
-                    Box {
-                        Button(onClick = {}) {
-                            Text("Click Me")
-                        }
-                        DropdownMenu(expanded = false, onDismissRequest = {}) {
-                            DropdownMenuItem(text = { Text("") }, onClick = {})
-                            DropdownMenuItem(text = { Text("") }, onClick = {})
-                            DropdownMenuItem(text = { Text("") }, onClick = {})
-
-                        }
-                    }
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    UnitConverter()
                 }
             }
         }
@@ -58,16 +51,53 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UnitConverter() {
-    Column() {
+    Column(verticalArrangement = Arrangement.Center) {
+        var fromUnit by remember { mutableStateOf("") }
+        var toUnit by remember { mutableStateOf("") }
+
         Row() {
-            Column() {
-                Text(text = "Unit Converter", Modifier.size(17.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Unit Converter")
+                Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(value = "", onValueChange = {})
             }
         }
-        Row() {
-            Column() {
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+            Box() {
+                var isOpen by remember { mutableStateOf(false) }
 
+                Button(onClick = { isOpen = !isOpen }) {
+                    Text(text= when {
+                        fromUnit == "" -> "From Unit"
+                        else -> fromUnit
+                    })
+                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert")
+                }
+                DropdownMenu(expanded = isOpen, onDismissRequest = { isOpen = false}) {
+                    DropdownMenuItem(onClick = { fromUnit = "Centimeters" }, text = { Text("Centimeters") })
+                    DropdownMenuItem(onClick = { fromUnit = "Meters" }, text = { Text("Meters") })
+                    DropdownMenuItem(onClick = { fromUnit = "Feet"}, text = { Text("Feet") })
+                    DropdownMenuItem(onClick = { fromUnit = "Millimeters" }, text = { Text("Millimeters") })
+                }
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            Box() {
+                var isOpen by remember { mutableStateOf(false) }
+
+                Button(onClick = { isOpen = !isOpen }) {
+                    Text(text= when {
+                        toUnit == "" -> "To Unit"
+                        else -> toUnit
+                    })
+                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert to")
+                }
+                DropdownMenu(expanded = isOpen, onDismissRequest = { isOpen = false }) {
+                    DropdownMenuItem(onClick = { toUnit = "Centimeters" }, text = { Text("Centimeters") })
+                    DropdownMenuItem(onClick = { toUnit = "Meters" }, text = { Text("Meters") })
+                    DropdownMenuItem(onClick = { toUnit = "Feet"}, text = { Text("Feet") })
+                    DropdownMenuItem(onClick = { toUnit = "Millimeters" }, text = { Text("Millimeters") })
+                }
             }
         }
     }
@@ -85,6 +115,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun UnitConverterPreview() {
     Column(verticalArrangement = Arrangement.Center) {
+        var fromUnit by remember { mutableStateOf("") }
+        var toUnit by remember { mutableStateOf("") }
+
         Row() {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Unit Converter")
@@ -95,28 +128,38 @@ fun UnitConverterPreview() {
         Spacer(modifier = Modifier.height(16.dp))
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
             Box() {
-                Button(onClick = {}) {
-                    Text(text="From Unit")
+                var isOpen by remember { mutableStateOf(false) }
+
+                Button(onClick = { isOpen = !isOpen }) {
+                    Text(text= when {
+                        fromUnit == "" -> "From Unit"
+                        else -> fromUnit
+                    })
                     Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert")
                 }
-                DropdownMenu(expanded = false, onDismissRequest = {}) {
-                    DropdownMenuItem(onClick = {}, text = { Text("Centimeters") })
-                    DropdownMenuItem(onClick = {}, text = { Text("Meters") })
-                    DropdownMenuItem(onClick = {}, text = { Text("Feet") })
-                    DropdownMenuItem(onClick = {}, text = { Text("Millimeters") })
+                DropdownMenu(expanded = isOpen, onDismissRequest = { isOpen = false}) {
+                    DropdownMenuItem(onClick = { fromUnit = "Centimeters" }, text = { Text("Centimeters") })
+                    DropdownMenuItem(onClick = { fromUnit = "Meters" }, text = { Text("Meters") })
+                    DropdownMenuItem(onClick = { fromUnit = "Feet"}, text = { Text("Feet") })
+                    DropdownMenuItem(onClick = { fromUnit = "Millimeters" }, text = { Text("Millimeters") })
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
             Box() {
-                Button(onClick = {}) {
-                    Text(text="To Unit")
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert")
+                var isOpen by remember { mutableStateOf(false) }
+
+                Button(onClick = { isOpen = !isOpen }) {
+                    Text(text= when {
+                        toUnit == "" -> "To Unit"
+                        else -> toUnit
+                    })
+                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert to")
                 }
-                DropdownMenu(expanded = false, onDismissRequest = {}) {
-                    DropdownMenuItem(onClick = {}, text = { Text("Centimeters") })
-                    DropdownMenuItem(onClick = {}, text = { Text("Meters") })
-                    DropdownMenuItem(onClick = {}, text = { Text("Feet") })
-                    DropdownMenuItem(onClick = {}, text = { Text("Millimeters") })
+                DropdownMenu(expanded = isOpen, onDismissRequest = { isOpen = false }) {
+                    DropdownMenuItem(onClick = { toUnit = "Centimeters" }, text = { Text("Centimeters") })
+                    DropdownMenuItem(onClick = { toUnit = "Meters" }, text = { Text("Meters") })
+                    DropdownMenuItem(onClick = { toUnit = "Feet"}, text = { Text("Feet") })
+                    DropdownMenuItem(onClick = { toUnit = "Millimeters" }, text = { Text("Millimeters") })
                 }
             }
         }
