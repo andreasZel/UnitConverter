@@ -66,29 +66,41 @@ fun UnitConverter() {
                 output = when {
                     fromUnit == "Centimeters" && toUnit == "Millimeters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) * 10).toString()
+
                     fromUnit == "Millimeters" && toUnit == "Centimeters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) / 10).toString()
+
                     fromUnit == "Meters" && toUnit == "Centimeters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) * 100).toString()
+
                     fromUnit == "Centimeters" && toUnit == "Meters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) / 100).toString()
+
                     fromUnit == "Meters" && toUnit == "Millimeters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) * 1000).toString()
+
                     fromUnit == "Millimeters" && toUnit == "Meters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) / 1000).toString()
+
                     fromUnit == "Feet" && toUnit == "Meters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) * 0.3048).toString()
+
                     fromUnit == "Feet" && toUnit == "Millimeters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) * 304.8).toString()
+
                     fromUnit == "Feet" && toUnit == "Centimeters" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) * 30.48).toString()
+
                     fromUnit == "Meters" && toUnit == "Feet" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) / 0.3048).toString()
+
                     fromUnit == "Centimeters" && toUnit == "Feet" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) / 30.48).toString()
+
                     fromUnit == toUnit -> inputOfUser
                     fromUnit == "Millimeters" && toUnit == "Feet" ->
                         ((inputOfUser.toDoubleOrNull() ?: 0.0) / 304.8).toString()
+
                     else ->
                         "Unsupported conversion"
                 }
@@ -96,10 +108,13 @@ fun UnitConverter() {
         }
 
         Row() {
-            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text(text = "Unit Converter", fontSize = 18.sp)
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedTextField(value = inputOfUser, onValueChange = fun (e) {
+                OutlinedTextField(value = inputOfUser, onValueChange = fun(e) {
                     inputOfUser = e
                     calculateConversion()
                 })
@@ -111,11 +126,16 @@ fun UnitConverter() {
                 var isOpen by remember { mutableStateOf(false) }
 
                 Button(onClick = { isOpen = !isOpen }) {
-                    Text(text= when {
-                        fromUnit == "" -> "From Unit"
-                        else -> fromUnit
-                    })
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert")
+                    Text(
+                        text = when {
+                            fromUnit == "" -> "From Unit"
+                            else -> fromUnit
+                        }
+                    )
+                    Icon(
+                        Icons.Default.KeyboardArrowDown,
+                        contentDescription = "Select a unit to convert"
+                    )
                 }
                 DropdownMenu(expanded = isOpen, onDismissRequest = {
                     isOpen = false
@@ -125,22 +145,22 @@ fun UnitConverter() {
                         fromUnit = "Centimeters"
                         isOpen = false
                         calculateConversion()
-                                               }, text = { Text("Centimeters") })
+                    }, text = { Text("Centimeters") })
                     DropdownMenuItem(onClick = {
                         fromUnit = "Meters"
                         isOpen = false
                         calculateConversion()
-                                               }, text = { Text("Meters") })
+                    }, text = { Text("Meters") })
                     DropdownMenuItem(onClick = {
                         fromUnit = "Feet"
                         isOpen = false
                         calculateConversion()
-                                               }, text = { Text("Feet") })
+                    }, text = { Text("Feet") })
                     DropdownMenuItem(onClick = {
                         fromUnit = "Millimeters"
                         isOpen = false
                         calculateConversion()
-                                               }, text = { Text("Millimeters") })
+                    }, text = { Text("Millimeters") })
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
@@ -148,11 +168,16 @@ fun UnitConverter() {
                 var isOpen by remember { mutableStateOf(false) }
 
                 Button(onClick = { isOpen = !isOpen }) {
-                    Text(text= when {
-                        toUnit == "" -> "To Unit"
-                        else -> toUnit
-                    })
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert to")
+                    Text(
+                        text = when {
+                            toUnit == "" -> "To Unit"
+                            else -> toUnit
+                        }
+                    )
+                    Icon(
+                        Icons.Default.KeyboardArrowDown,
+                        contentDescription = "Select a unit to convert to"
+                    )
                 }
                 DropdownMenu(expanded = isOpen, onDismissRequest = {
                     isOpen = false
@@ -162,27 +187,31 @@ fun UnitConverter() {
                         toUnit = "Centimeters"
                         isOpen = false
                         calculateConversion()
-                                               }, text = { Text("Centimeters") })
+                    }, text = { Text("Centimeters") })
                     DropdownMenuItem(onClick = {
                         toUnit = "Meters"
                         isOpen = false
                         calculateConversion()
-                                               }, text = { Text("Meters") })
+                    }, text = { Text("Meters") })
                     DropdownMenuItem(onClick = {
                         toUnit = "Feet"
                         isOpen = false
                         calculateConversion()
-                                               }, text = { Text("Feet") })
+                    }, text = { Text("Feet") })
                     DropdownMenuItem(onClick = {
                         toUnit = "Millimeters"
                         isOpen = false
-                        calculateConversion()}, text = { Text("Millimeters") })
+                        calculateConversion()
+                    }, text = { Text("Millimeters") })
                 }
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row() {
-            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text(text = "Output:")
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(text = output)
@@ -197,12 +226,66 @@ fun UnitConverterPreview() {
     Column(verticalArrangement = Arrangement.Center) {
         var fromUnit by remember { mutableStateOf("") }
         var toUnit by remember { mutableStateOf("") }
+        var inputOfUser by remember { mutableStateOf("") }
+        var output by remember { mutableStateOf("") }
+
+        fun calculateConversion() {
+            if (fromUnit != "" && toUnit != "") {
+                output = when {
+                    fromUnit == "Centimeters" && toUnit == "Millimeters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 10).toString()
+
+                    fromUnit == "Millimeters" && toUnit == "Centimeters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 10).toString()
+
+                    fromUnit == "Meters" && toUnit == "Centimeters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 100).toString()
+
+                    fromUnit == "Centimeters" && toUnit == "Meters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 100).toString()
+
+                    fromUnit == "Meters" && toUnit == "Millimeters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 1000).toString()
+
+                    fromUnit == "Millimeters" && toUnit == "Meters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 1000).toString()
+
+                    fromUnit == "Feet" && toUnit == "Meters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 0.3048).toString()
+
+                    fromUnit == "Feet" && toUnit == "Millimeters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 304.8).toString()
+
+                    fromUnit == "Feet" && toUnit == "Centimeters" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 30.48).toString()
+
+                    fromUnit == "Meters" && toUnit == "Feet" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 0.3048).toString()
+
+                    fromUnit == "Centimeters" && toUnit == "Feet" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 30.48).toString()
+
+                    fromUnit == toUnit -> inputOfUser
+                    fromUnit == "Millimeters" && toUnit == "Feet" ->
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 304.8).toString()
+
+                    else ->
+                        "Unsupported conversion"
+                }
+            }
+        }
 
         Row() {
-            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                Text(text = "Unit Converter")
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Unit Converter", fontSize = 18.sp)
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedTextField(value = "", onValueChange = {})
+                OutlinedTextField(value = inputOfUser, onValueChange = fun(e) {
+                    inputOfUser = e
+                    calculateConversion()
+                })
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -211,17 +294,41 @@ fun UnitConverterPreview() {
                 var isOpen by remember { mutableStateOf(false) }
 
                 Button(onClick = { isOpen = !isOpen }) {
-                    Text(text= when {
-                        fromUnit == "" -> "From Unit"
-                        else -> fromUnit
-                    })
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert")
+                    Text(
+                        text = when {
+                            fromUnit == "" -> "From Unit"
+                            else -> fromUnit
+                        }
+                    )
+                    Icon(
+                        Icons.Default.KeyboardArrowDown,
+                        contentDescription = "Select a unit to convert"
+                    )
                 }
-                DropdownMenu(expanded = isOpen, onDismissRequest = { isOpen = false}) {
-                    DropdownMenuItem(onClick = { fromUnit = "Centimeters" }, text = { Text("Centimeters") })
-                    DropdownMenuItem(onClick = { fromUnit = "Meters" }, text = { Text("Meters") })
-                    DropdownMenuItem(onClick = { fromUnit = "Feet"}, text = { Text("Feet") })
-                    DropdownMenuItem(onClick = { fromUnit = "Millimeters" }, text = { Text("Millimeters") })
+                DropdownMenu(expanded = isOpen, onDismissRequest = {
+                    isOpen = false
+                    calculateConversion()
+                }) {
+                    DropdownMenuItem(onClick = {
+                        fromUnit = "Centimeters"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Centimeters") })
+                    DropdownMenuItem(onClick = {
+                        fromUnit = "Meters"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Meters") })
+                    DropdownMenuItem(onClick = {
+                        fromUnit = "Feet"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Feet") })
+                    DropdownMenuItem(onClick = {
+                        fromUnit = "Millimeters"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Millimeters") })
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
@@ -229,18 +336,53 @@ fun UnitConverterPreview() {
                 var isOpen by remember { mutableStateOf(false) }
 
                 Button(onClick = { isOpen = !isOpen }) {
-                    Text(text= when {
-                        toUnit == "" -> "To Unit"
-                        else -> toUnit
-                    })
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Select a unit to convert to")
+                    Text(
+                        text = when {
+                            toUnit == "" -> "To Unit"
+                            else -> toUnit
+                        }
+                    )
+                    Icon(
+                        Icons.Default.KeyboardArrowDown,
+                        contentDescription = "Select a unit to convert to"
+                    )
                 }
-                DropdownMenu(expanded = isOpen, onDismissRequest = { isOpen = false }) {
-                    DropdownMenuItem(onClick = { toUnit = "Centimeters" }, text = { Text("Centimeters") })
-                    DropdownMenuItem(onClick = { toUnit = "Meters" }, text = { Text("Meters") })
-                    DropdownMenuItem(onClick = { toUnit = "Feet"}, text = { Text("Feet") })
-                    DropdownMenuItem(onClick = { toUnit = "Millimeters" }, text = { Text("Millimeters") })
+                DropdownMenu(expanded = isOpen, onDismissRequest = {
+                    isOpen = false
+                    calculateConversion()
+                }) {
+                    DropdownMenuItem(onClick = {
+                        toUnit = "Centimeters"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Centimeters") })
+                    DropdownMenuItem(onClick = {
+                        toUnit = "Meters"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Meters") })
+                    DropdownMenuItem(onClick = {
+                        toUnit = "Feet"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Feet") })
+                    DropdownMenuItem(onClick = {
+                        toUnit = "Millimeters"
+                        isOpen = false
+                        calculateConversion()
+                    }, text = { Text("Millimeters") })
                 }
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Row() {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Output:")
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = output)
             }
         }
     }
