@@ -65,30 +65,30 @@ fun UnitConverter() {
             if (fromUnit != "" && toUnit != "") {
                 output = when {
                     fromUnit == "Centimeters" && toUnit == "Millimeters" ->
-                        (inputOfUser.toDouble() * 10).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 10).toString()
                     fromUnit == "Millimeters" && toUnit == "Centimeters" ->
-                        (inputOfUser.toDouble() / 10).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 10).toString()
                     fromUnit == "Meters" && toUnit == "Centimeters" ->
-                        (inputOfUser.toDouble() * 100).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 100).toString()
                     fromUnit == "Centimeters" && toUnit == "Meters" ->
-                        (inputOfUser.toDouble() / 100).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 100).toString()
                     fromUnit == "Meters" && toUnit == "Millimeters" ->
-                        (inputOfUser.toDouble() * 1000).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 1000).toString()
                     fromUnit == "Millimeters" && toUnit == "Meters" ->
-                        (inputOfUser.toDouble() / 1000).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 1000).toString()
                     fromUnit == "Feet" && toUnit == "Meters" ->
-                        (inputOfUser.toDouble() * 0.3048).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 0.3048).toString()
                     fromUnit == "Feet" && toUnit == "Millimeters" ->
-                        (inputOfUser.toDouble() * 304.8).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 304.8).toString()
                     fromUnit == "Feet" && toUnit == "Centimeters" ->
-                        (inputOfUser.toDouble() * 30.48).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) * 30.48).toString()
                     fromUnit == "Meters" && toUnit == "Feet" ->
-                        (inputOfUser.toDouble() / 0.3048).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 0.3048).toString()
                     fromUnit == "Centimeters" && toUnit == "Feet" ->
-                        (inputOfUser.toDouble() / 30.48).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 30.48).toString()
                     fromUnit == toUnit -> inputOfUser
                     fromUnit == "Millimeters" && toUnit == "Feet" ->
-                        (inputOfUser.toDouble() / 304.8).toString()
+                        ((inputOfUser.toDoubleOrNull() ?: 0.0) / 304.8).toString()
                     else ->
                         "Unsupported conversion"
                 }
